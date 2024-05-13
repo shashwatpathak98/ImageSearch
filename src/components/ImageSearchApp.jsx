@@ -6,44 +6,68 @@ const ImageSearchApp = () => {
   const [totalPages, setTotalPages] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const [triggerSearch, setTriggerSearch] = React.useState(false);
 
   const id = import.meta.env.VITE_API_KEY;
 
-  // React.useEffect(() => {
-
-  // }, [query, page, id , loading]);
-
-  const handleSearch = async () => {
-    if (query.trim() === "") {
-      setResults([]);
-      return;
-    }
-
-    setError(null);
-    setLoading(true);
-    try {
-      const data = await fetch(
-        `https://api.unsplash.com/search/photos?query=${query}&page=${page}&client_id=${id}`
-      );
-
-      if (!data.ok) {
-        throw new Error("Unable to fetch the images.");
+  React.useEffect(() => {
+    const handleSearch = async () => {
+      if (!triggerSearch || query.trim() === "") {
+        setResults([]);
+        return;
       }
 
-      const res = await data.json();
+      setError(null);
+      setLoading(true);
 
-      setResults(res.results);
-      setTotalPages(res.total_pages);
-    } catch (error) {
-      setError(`There is an error in fetching results`);
-    } finally {
-      setLoading(false);
+      try {
+        const data = await fetch(
+          `https://api.unsplash.com/search/photos?query=${query}&page=${page}&client_id=${id}`
+        );
+
+        if (!data.ok) {
+          throw new Error("Unable to fetch the images.");
+        }
+
+        const res = await data.json();
+
+        setResults(res.results);
+        setTotalPages(res.total_pages);
+      } catch (error) {
+        setError(`There is an error in fetching results`);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (triggerSearch) {
+      handleSearch();
     }
-  };
+  }, [id, page, query, triggerSearch]);
 
   const handleImageClick = (url) => {
     window.open(url);
   };
+
+  const initiateSearch = () => {
+    setTriggerSearch(true);
+  };
+
+  const handlePrevPage = () => {
+    setPage(page - 1);
+    initiateSearch();
+  };
+
+  const handleNextPage = () => {
+    setPage(page + 1);
+    initiateSearch();
+  };
+
+  React.useEffect(() => {
+    if (triggerSearch) {
+      setTriggerSearch(false);
+    }
+  }, [triggerSearch]);
 
   return (
     <div className="flex flex-col justify-center align-middle">
@@ -54,10 +78,13 @@ const ImageSearchApp = () => {
           value={query}
           name="query"
           placeholder="Enter some text here..."
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setTriggerSearch(false);
+          }}
         />
         <div
-          onClick={handleSearch}
+          onClick={initiateSearch}
           className="bg-purple-700 hover:bg-purple-800 hover:cursor-pointer text-white font-bold p-3 rounded-md"
         >
           Search
@@ -85,6 +112,16 @@ const ImageSearchApp = () => {
               />
             );
           })}
+        </div>
+      )}
+      {query.length != 0 && (
+        <div className="flex  text-center justify-around my-12">
+          <button className="" onClick={handlePrevPage} disabled={page <= 1}>
+            &#8592; Previous
+          </button>
+          <button onClick={handleNextPage} disabled={page >= totalPages}>
+            Next
+          </button>
         </div>
       )}
     </div>
