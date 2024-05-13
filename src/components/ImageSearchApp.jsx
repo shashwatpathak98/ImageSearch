@@ -100,12 +100,12 @@ const ImageSearchApp = () => {
           Loading...
         </div>
       ) : (
-        <div className="px-10 grid md:grid-cols-5 md:gap-6 ">
+        <div className="px-3 sm:px-5 md:px-14 grid md:grid-cols-5 md:gap-6">
           {results.map((result) => {
             return (
               <img
                 key={result.id}
-                className="h-48 w-48 object-cover rounded-md hover:cursor-pointer hover:shadow-lg"
+                className="h-48 w-48 object-cover rounded-md hover:cursor-pointer hover:shadow-lg "
                 src={result.urls.full}
                 alt={result.alt_description}
                 onClick={() => handleImageClick(result.urls.full)}
@@ -114,13 +114,13 @@ const ImageSearchApp = () => {
           })}
         </div>
       )}
-      {query.length != 0 && (
+      {results != 0 && (
         <div className="flex  text-center justify-around my-12">
-          <button className="" onClick={handlePrevPage} disabled={page <= 1}>
+          <button className="bg-slate-200 p-2 text-purple-900 hover:bg-slate-300 rounded-md font-bold" onClick={handlePrevPage} disabled={page <= 1}>
             &#8592; Previous
           </button>
-          <button onClick={handleNextPage} disabled={page >= totalPages}>
-            Next
+          <button className="bg-slate-200 p-2 text-purple-900 hover:bg-slate-300 rounded-md font-bold"  onClick={handleNextPage} disabled={page >= totalPages}>
+            Next &#x2192;
           </button>
         </div>
       )}
