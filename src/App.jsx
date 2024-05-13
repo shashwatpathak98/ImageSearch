@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import ImageSearchApp from './components/ImageSearchApp'
 
 function App() {
