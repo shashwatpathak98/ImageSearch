@@ -95,6 +95,9 @@ const ImageSearchApp = () => {
           {error}
         </div>
       )}
+      {results.length === 0 && <div className="flex items-center justify-center text-1xl font-bold text-cyan-800">Type in the searchbox what you want to search..</div>
+
+      }
       {loading ? (
         <div className="flex text-2xl bg-green-100 items-center justify-center w-5/5 mt-4 mx-20 p-1">
           Loading...
@@ -106,7 +109,7 @@ const ImageSearchApp = () => {
               <img
                 key={result.id}
                 className="h-48 w-48 object-cover rounded-md hover:cursor-pointer hover:shadow-lg "
-                src={result.urls.full}
+                src={result.urls.small}
                 alt={result.alt_description}
                 onClick={() => handleImageClick(result.urls.full)}
               />
@@ -115,11 +118,11 @@ const ImageSearchApp = () => {
         </div>
       )}
       {results != 0 && (
-        <div className="flex  text-center justify-around my-12">
-          <button className="bg-slate-200 p-2 text-purple-900 hover:bg-slate-300 rounded-md font-bold" onClick={handlePrevPage} disabled={page <= 1}>
+        <div className="flex  text-center justify-around my-1">
+          <button className="bg-slate-200 px-1 text-purple-900 hover:bg-slate-300 rounded-md font-bold" onClick={handlePrevPage} disabled={page <= 1}>
             &#8592; Previous
           </button>
-          <button className="bg-slate-200 p-2 text-purple-900 hover:bg-slate-300 rounded-md font-bold"  onClick={handleNextPage} disabled={page >= totalPages}>
+          <button className="bg-slate-200 px-1 text-purple-900 hover:bg-slate-300 rounded-md font-bold"  onClick={handleNextPage} disabled={page >= totalPages}>
             Next &#x2192;
           </button>
         </div>
