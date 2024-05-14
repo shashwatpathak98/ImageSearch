@@ -108,12 +108,12 @@ const ImageSearchApp = () => {
           Loading...
         </div>
       ) : (
-        <div className="px-3 sm:px-5 md:px-14  flex flex-wrap gap-y-1 sm:flex  md:gap-6">
+        <div className="px-3 sm:px-5  md:px-14  flex flex-wrap gap-y-1 align-middle   md:justify-center sm:flex sm:ml-2 md:gap-6">
           {results.map((result) => {
             return (
               <img
                 key={result.id}
-                className="h-48 w-48 object-cover rounded-md hover:cursor-pointer hover:shadow-lg "
+                className="h-48 w-48 ml-1 object-cover rounded-md hover:cursor-pointer hover:shadow-lg sm:ml-2"
                 src={result.urls.small}
                 alt={result.alt_description}
                 onClick={() => handleImageClick(result.urls.full)}
