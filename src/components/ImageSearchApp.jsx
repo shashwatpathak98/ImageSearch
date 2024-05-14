@@ -108,7 +108,7 @@ const ImageSearchApp = () => {
           Loading...
         </div>
       ) : (
-        <div className="px-3 sm:px-5 md:px-14 grid grid-cols-2 gap-y-1 sm:grid-cols-2 sm:gap-y-6 sm:mt-4 md:grid-cols-5 md:gap-6">
+        <div className="px-3 sm:px-5 md:px-14  flex flex-wrap gap-y-1 sm:flex  md:gap-6">
           {results.map((result) => {
             return (
               <img
