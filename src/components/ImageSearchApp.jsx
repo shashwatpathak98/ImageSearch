@@ -83,9 +83,9 @@ const ImageSearchApp = () => {
             setTriggerSearch(false);
           }}
           onKeyUp={(e) => {
-             if(e.key === "Enter"){
-                initiateSearch()
-             }
+            if (e.key === "Enter") {
+              initiateSearch();
+            }
           }}
         />
         <div
@@ -100,20 +100,22 @@ const ImageSearchApp = () => {
           {error}
         </div>
       )}
-      {results.length === 0 && <div className="flex items-center justify-center text-1xl font-bold text-cyan-800">Type in the searchbox what you want to search..</div>
-
-      }
+      {results.length === 0 && (
+        <div className="flex items-center justify-center text-1xl font-bold text-cyan-800">
+          Type in the searchbox what you want to search..
+        </div>
+      )}
       {loading ? (
         <div className="flex text-2xl bg-green-100 items-center justify-center w-5/5 mt-4 mx-20 p-1">
           Loading...
         </div>
       ) : (
-        <div className="px-3 sm:px-5  md:px-14  flex flex-wrap gap-y-1 align-middle   md:justify-center sm:flex sm:ml-2 md:gap-6">
+        <div className="px-3  justify-center sm:px-5  md:px-14  flex flex-wrap content-start gap-y-1 align-middle sm:flex sm:ml-2 md:gap-6">
           {results.map((result) => {
             return (
               <img
                 key={result.id}
-                className="h-48 w-48 ml-1 object-cover rounded-md hover:cursor-pointer hover:shadow-lg sm:ml-2"
+                className="h-48 w-48 scale-100 hover:scale-110 ease-in duration-200 ml-1 object-cover rounded-md hover:cursor-pointer hover:shadow-lg sm:ml-2 transition-all "
                 src={result.urls.small}
                 alt={result.alt_description}
                 onClick={() => handleImageClick(result.urls.full)}
@@ -123,11 +125,19 @@ const ImageSearchApp = () => {
         </div>
       )}
       {results != 0 && (
-        <div className="flex  text-center justify-around my-1">
-          <button className="bg-slate-200 px-1 text-purple-900 hover:bg-slate-300 rounded-md font-bold" onClick={handlePrevPage} disabled={page <= 1}>
+        <div className="flex  text-center justify-around py-[2rem] mb-[2.4rem]" >
+          <button
+            className="bg-slate-200 px-1 text-purple-900 hover:bg-slate-300 rounded-md font-bold"
+            onClick={handlePrevPage}
+            disabled={page <= 1}
+          >
             &#8592; Previous
           </button>
-          <button className="bg-slate-200 px-1 text-purple-900 hover:bg-slate-300 rounded-md font-bold"  onClick={handleNextPage} disabled={page >= totalPages}>
+          <button
+            className="bg-slate-200 px-1 text-purple-900 hover:bg-slate-300 rounded-md font-bold"
+            onClick={handleNextPage}
+            disabled={page >= totalPages}
+          >
             Next &#x2192;
           </button>
         </div>
