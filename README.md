@@ -5,7 +5,7 @@ A React application that allows users to search for images using the Unsplash AP
 ## Features
 
 - Search for images by keyword
-- View images in a responsive grid layout
+- View images in a responsive flex layout
 - Pagination to navigate through search results
 - Click on images to open them in full size
 
